@@ -26,10 +26,21 @@
         <script src="js/filters/ellipsisFilter.js"></script>
         <script src="js/directives/uiAlertDirective.js"></script>
         <script src="js/directives/uiDateDirective.js"></script>
+        <script src="js/interceptors/timestampInterceptor.js"></script>
+        <script src="js/config/interceptorConfig.js"></script>
+        <script src="js/interceptors/errorInterceptor.js"></script>
+        <script src="js/interceptors/loadingInterceptor.js"></script>
 
     </head>
     <body>
-        <div ng-view></div>
-        <footer ng-include="'view/footer.html'"></footer>
+        <div class="jumbotron" ng-show="loading">
+            <hr>
+            <h3>Carregando, por favor aguarde.</h3>
+            <hr>
+        </div>
+        <div ng-hide="loading">
+            <div ng-view></div>
+            <footer ng-include="'view/footer.html'"></footer>
+        </div>
     </body>
 </html>
