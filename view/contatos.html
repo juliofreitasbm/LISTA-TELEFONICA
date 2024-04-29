@@ -22,7 +22,7 @@
     </ui-alert>
 
     <!-- {{contatos}} -->
-    <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?">
+    <input class="form-control" type="text" ng-model="criterioDeBusca" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}" placeholder="O que você está buscando?">
     <table ng-show="contatos.length > 0" class="table table-striped">
         <tr>
             <th></th>
@@ -30,15 +30,17 @@
             <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
             <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
             <th>Operadora</th>
+            <th>Preço</th>
             <th>Nascimento</th>
         </tr>
-        <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+        <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao track by $index">
             <td><input type="checkbox" ng-model="contato.selecionado"></td>
-            <td>{{contato.serial }}</td>
-            <td><a href="#!/detalhesContato/{{contato.id}}">{{contato.nome | name | ellipsis:10}}</a></td>
-            <td>{{contato.telefone}}</td>
-            <td>{{contato.operadora.nome}}</td>
-            <td>{{contato.data | date:'dd/MM/yyyy'}}</td>
+            <td>{{::contato.serial }}</td>
+            <td><a href="#!/detalhesContato/{{contato.id}}">{{::contato.nome | name | ellipsis:10}}</a></td>
+            <td>{{::contato.telefone}}</td>
+            <td>{{::contato.operadora.nome}}</td>
+            <td>{{::contato.operadora.precoComImposto | currency}}</td>
+            <td>{{::contato.data | date:'dd/MM/yyyy'}}</td>
             <!-- <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td> -->
         </tr>
     </table>
